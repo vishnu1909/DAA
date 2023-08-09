@@ -1,0 +1,57 @@
+#include <stdio.h>
+#define MAX_NUM 10001 
+typedef struct {
+    int maxVal;
+    int secondMaxVal;
+} DigitSumInfo;
+int sumOfDigits(int num) {
+    int sum = 0;
+    while (num) {
+        sum += num % 10;
+        num /= 10;
+    }
+    return sum;
+}
+int maxSumEqualDigitSum(int nums[], int n) {
+    DigitSumInfo digitSumMap[MAX_NUM] = {0};
+    int globalMaxSum = -1;
+    for (int i = 0; i < n; i++) {
+        int sum = sumOfDigits(nums[i]);
+        if (nums[i] > digitSumMap[sum].maxVal) {
+            digitSumMap[sum].secondMaxVal = digitSumMap[sum].maxVal;
+            digitSumMap[sum].maxVal = nums[i];
+        } else if (nums[i] > digitSumMap[sum].secondMaxVal) {
+            digitSumMap[sum].secondMaxVal = nums[i];
+        }
+        if (digitSumMap[sum].secondMaxVal > 0) {
+            int localMaxSum = digitSumMap[sum].maxVal + digitSumMap[sum].secondMaxVal;
+            if (localMaxSum > globalMaxSum) {
+                globalMaxSum = localMaxSum;
+            }
+        }
+    }
+    return globalMaxSum;
+}
+int main() {
+    int n;
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+    int nums[n];
+    printf("Enter %d elements for the array:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &nums[i]);
+    }
+    int result = maxSumEqualDigitSum(nums, n);
+    printf("The maximum value of nums[i] + nums[j] with equal digit sum is: %d\n", result);
+    return 0;
+}
+=======================================================================================================
+OUTPUT:
+Enter the size of the array: 5
+Enter 5 elements for the array:
+1
+8
+3
+6
+5
+The maximum value of nums[i] + nums[j] with equal digit sum is: -1
