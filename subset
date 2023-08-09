@@ -1,0 +1,55 @@
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+void findSubsets(int set[], int subset[], int n, int subsetSize, int sum, int targetSum, int index) {
+    if (sum == targetSum) {
+        printf("Subset with sum %d: {", targetSum);
+        for (int i = 0; i < subsetSize; i++) {
+            printf("%d ", subset[i]);
+        }
+        printf("}\n");
+        return;
+    }
+
+    if (index == n || sum > targetSum) {
+        return;
+    }
+
+    subset[subsetSize] = set[index];
+    findSubsets(set, subset, n, subsetSize + 1, sum + set[index], targetSum, index + 1);
+
+    findSubsets(set, subset, n, subsetSize, sum, targetSum, index + 1);
+}
+
+int main() {
+    int n, targetSum;
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int set[MAX_SIZE];
+    printf("Enter the elements:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &set[i]);
+    }
+
+    printf("Enter the target sum: ");
+    scanf("%d", &targetSum);
+
+    int subset[MAX_SIZE];
+    findSubsets(set, subset, n, 0, 0, targetSum, 0);
+
+    return 0;
+}
+=====================================================================================================================
+OUTPUT:
+Enter the number of elements: 5
+Enter the elements:
+6
+2
+8
+1
+5
+Enter the target sum: 9
+Subset with sum 9: {6 2 1 }
+Subset with sum 9: {8 1 }
