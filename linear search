@@ -1,0 +1,39 @@
+#include <stdio.h>
+int linearSearch(int arr[], int n, int x) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == x)
+            return i;
+    }
+    return -1;
+}
+int main() {
+    int n, x;
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+    int arr[n];
+    printf("Enter %d elements for the array:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    printf("Enter the number to be searched: ");
+    scanf("%d", &x);
+    int result = linearSearch(arr, n, x);
+    if(result == -1) {
+        printf("Element %d is not present in the array.\n", x);
+    } else {
+        printf("Element %d is present at index %d.\n", x, result);
+    }
+    return 0;
+}
+==================================================================================================
+OUTPUT:
+
+Enter the size of the array: 5
+Enter 5 elements for the array:
+2
+7
+4
+9
+6
+Enter the number to be searched: 9
+Element 9 is present at index 3.
