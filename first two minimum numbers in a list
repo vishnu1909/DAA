@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+void findTwoMinimums(int arr[], int size, int *min1, int *min2) {
+    if (arr[0] < arr[1]) {
+        *min1 = arr[0];
+        *min2 = arr[1];
+    } else {
+        *min1 = arr[1];
+        *min2 = arr[0];
+    }
+
+    for (int i = 2; i < size; i++) {
+        if (arr[i] < *min1) {
+            *min2 = *min1;
+            *min1 = arr[i];
+        } else if (arr[i] < *min2) {
+            *min2 = arr[i];
+        }
+    }
+}
+
+int main() {
+    int size, min1, min2;
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &size);
+
+    int numbers[size];
+
+    printf("Enter %d numbers:\n", size);
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &numbers[i]);
+    }
+
+    findTwoMinimums(numbers, size, &min1, &min2);
+
+    printf("First minimum: %d\n", min1);
+    printf("Second minimum: %d\n", min2);
+
+    return 0;
+}
+======================================================================================
+OUTPUT:
+Enter the number of elements: 5
+Enter 5 numbers:
+3
+7
+4
+5
+1
+First minimum: 1
+Second minimum: 3
